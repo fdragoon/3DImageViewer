@@ -7,6 +7,8 @@
 #include <vtkRenderWindowInteractor.h>
 #include <vtkSmartPointer.h>
 
+#include "vtkImageViewer3.h"
+
 
 
 
@@ -14,9 +16,9 @@ int main(int argc, char *argv[])
 {
 
 
-	int x = 60;
-	int y = 70;
-	int z = 80;
+	int x = 200;
+	int y = 200;
+	int z = 100;
 
 	//读取Dicom数据
 	//VTK可以从文件夹中读取一系列数据，并组合为三维图像数据。
@@ -29,32 +31,11 @@ int main(int argc, char *argv[])
 	vtkSmartPointer<vtkRenderWindow> windowsBasic = vtkSmartPointer<vtkRenderWindow> ::New();
 	windowsBasic->SetSize(500, 500);
 
-	//创建vtkImageViewer2子窗口，用以显示二维图形
-	//注意，由于需要变更显示窗口，因此要将vtkImageViewer2的窗口重新定向到显示窗口，
-	//同时显示窗口中添加该子窗口的渲染器。
-	vtkSmartPointer<vtkImageViewer2> viewerXY = vtkSmartPointer<vtkImageViewer2>::New();
-	viewerXY->SetInputConnection(dicomReader->GetOutputPort());
-	viewerXY->SetSliceOrientationToXY();
-	viewerXY->SetSlice(z);
-	viewerXY->GetRenderer()->SetViewport(0, 0.5, 0.5, 1);
-	viewerXY->SetRenderWindow(windowsBasic);
-	windowsBasic->AddRenderer(viewerXY->GetRenderer());
-
-	vtkSmartPointer<vtkImageViewer2> viewerYZ = vtkSmartPointer<vtkImageViewer2>::New();
-	viewerYZ->SetInputConnection(dicomReader->GetOutputPort());
-	viewerYZ->SetSliceOrientationToYZ();
-	viewerYZ->SetSlice(x);
-	viewerYZ->GetRenderer()->SetViewport(0.5, 0.5, 1, 1);
-	viewerYZ->SetRenderWindow(windowsBasic);
-	windowsBasic->AddRenderer(viewerXY->GetRenderer());
-
-	vtkSmartPointer<vtkImageViewer2> viewerXZ = vtkSmartPointer<vtkImageViewer2>::New();
-	viewerXZ->SetInputConnection(dicomReader->GetOutputPort());
-	viewerXZ->SetSliceOrientationToXZ();
-	viewerXZ->SetSlice(y);
-	viewerXZ->GetRenderer()->SetViewport(0, 0, 0.5, 0.5);
-	viewerXZ->SetRenderWindow(windowsBasic);
-	windowsBasic->AddRenderer(viewerXZ->GetRenderer());
+	////创建vtkImageViewer3子窗口，用以显示二维图形
+	vtkSmartPointer<vtkImageViewer3> viewer = vtkSmartPointer<vtkImageViewer3>::New();
+	viewer->SetInputConnection(dicomReader->GetOutputPort());
+	viewer->SetPoint(x, y, z);
+	viewer->SetRenderWindow(windowsBasic);
 
 	//创建交互器
 	vtkSmartPointer<vtkRenderWindowInteractor>windowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();

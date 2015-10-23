@@ -12,6 +12,11 @@ find_package(VTK REQUIRED)
 
 include(${VTK_USE_FILE})
 
-add_executable(Homework MACOSX_BUNDLE source.cpp)
+set(Homework_SRCS 
+source.cpp
+vtkImageViewer3.cpp
+)
+
+add_executable(Homework MACOSX_BUNDLE ${Homework_SRCS})
 
 target_link_libraries(Homework ${VTK_LIBRARIES})
