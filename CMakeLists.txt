@@ -15,6 +15,7 @@ include(${VTK_USE_FILE})
 set(Homework_SRCS 
 source.cpp
 vtkImageViewer3.cpp
+vtkImagePlaneWidget3.cpp
 )
 
 add_executable(Homework MACOSX_BUNDLE ${Homework_SRCS})
