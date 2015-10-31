@@ -1,9 +1,8 @@
-#include "vtkInteractionImageModule.h" // For export macro
 #include "vtkObject.h"
 
-class vtkAlgorithmOutput;
-class vtkImageViewer2;
-class vtkRenderWindow;
+#include "vtkAlgorithmOutput.h"
+#include "vtkImageViewer2.h"
+#include "vtkRenderWindow.h"
 
 class vtkImageViewer3 :public vtkObject
 {
@@ -32,7 +31,7 @@ protected:
 	vtkImageViewer3();
 	~vtkImageViewer3();
 
-private:
+public:
 	vtkImageViewer2 *viewerXY, *viewerYZ, *viewerXZ;
 
 };

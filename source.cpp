@@ -1,4 +1,5 @@
 
+#include <vtkCellPicker.h>
 #include <vtkDICOMImageReader.h>
 #include <vtkImageViewer2.h>
 #include <vtkInteractorStyleImage.h>
@@ -8,9 +9,7 @@
 #include <vtkSmartPointer.h>
 
 #include "vtkImageViewer3.h"
-
-
-
+#include "vtkImagePlaneWidget3.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,36 +26,94 @@ int main(int argc, char *argv[])
 	dicomReader->SetDirectoryName(dirname);
 	dicomReader->Update();
 
-	////创建显示窗口
-	//vtkSmartPointer<vtkRenderWindow> windowsBasic = vtkSmartPointer<vtkRenderWindow> ::New();
-	//windowsBasic->SetSize(500, 500);
+	int mode = 3;
 
-	////创建vtkImageViewer3子窗口，用以显示二维图形
-	//vtkSmartPointer<vtkImageViewer3> viewer = vtkSmartPointer<vtkImageViewer3>::New();
-	////设置数据源
-	//viewer->SetInputConnection(dicomReader->GetOutputPort());
-	////设置显示坐标
-	//viewer->SetPoint(x, y, z);
-	////设置渲染窗口
-	//viewer->SetRenderWindow(windowsBasic);
+	if (mode == 1)
+	{
+		//创建显示窗口
+		vtkSmartPointer<vtkRenderWindow> windowsBasic = vtkSmartPointer<vtkRenderWindow> ::New();
+		windowsBasic->SetSize(500, 500);
 
-	//vtkImageViewer2单图像实现
-	vtkSmartPointer<vtkImageViewer2> viewer = vtkSmartPointer<vtkImageViewer2>::New();
-	viewer->SetInputConnection(dicomReader->GetOutputPort());
-	viewer->SetSliceOrientationToXY();
-	viewer->SetSlice(100);
+		//创建vtkImageViewer3子窗口，用以显示二维图形
+		vtkSmartPointer<vtkImageViewer3> viewer = vtkSmartPointer<vtkImageViewer3>::New();
+		//设置数据源
+		viewer->SetInputConnection(dicomReader->GetOutputPort());
+		//设置显示坐标
+		viewer->SetPoint(x, y, z);
+		//设置渲染窗口
+		viewer->SetRenderWindow(windowsBasic);
 
-	//创建交互器
-	vtkSmartPointer<vtkRenderWindowInteractor>windowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
-	//windowInteractor->SetRenderWindow(windowsBasic);//-3
-	windowInteractor->SetRenderWindow(viewer->GetRenderWindow());//-2
-	//交互器样式暂时采用vtkInteractorStyleImage
-	vtkSmartPointer<vtkInteractorStyleImage>windowInteractorStyle = vtkSmartPointer<vtkInteractorStyleImage>::New();
-	windowInteractor->SetInteractorStyle(windowInteractorStyle);
 
-	//初始化与显示
-	windowInteractor->Initialize();
-	windowInteractor->Start();
+		//创建交互器
+		vtkSmartPointer<vtkRenderWindowInteractor>windowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
+		windowInteractor->SetRenderWindow(windowsBasic);
+
+		//交互器样式暂时采用vtkInteractorStyleImage
+		vtkSmartPointer<vtkInteractorStyleImage>windowInteractorStyle = vtkSmartPointer<vtkInteractorStyleImage>::New();
+		windowInteractor->SetInteractorStyle(windowInteractorStyle);
+
+		//初始化与显示
+		windowInteractor->Initialize();
+		windowInteractor->Start();
+	}
+	else if (mode == 2)
+	{
+		//vtkImageViewer2单图像实现
+		vtkSmartPointer<vtkImageViewer2> viewer = vtkSmartPointer<vtkImageViewer2>::New();
+		viewer->SetInputConnection(dicomReader->GetOutputPort());
+		viewer->SetSliceOrientationToXY();
+		viewer->SetSlice(100);
+		//创建交互器
+		vtkSmartPointer<vtkRenderWindowInteractor>windowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
+		windowInteractor->SetRenderWindow(viewer->GetRenderWindow());//-2
+
+		//交互器样式暂时采用vtkInteractorStyleImage
+		vtkSmartPointer<vtkInteractorStyleImage>windowInteractorStyle = vtkSmartPointer<vtkInteractorStyleImage>::New();
+		windowInteractor->SetInteractorStyle(windowInteractorStyle);
+
+		//初始化与显示
+		windowInteractor->Initialize();
+		windowInteractor->Start();
+	}
+	else if (mode==3)
+	{
+		//创建显示窗口
+		vtkSmartPointer<vtkRenderWindow> windowsBasic = vtkSmartPointer<vtkRenderWindow> ::New();
+		windowsBasic->SetSize(600, 600);
+
+		//创建交互器
+		vtkSmartPointer<vtkRenderWindowInteractor>windowInteractor = vtkSmartPointer<vtkRenderWindowInteractor>::New();
+		windowInteractor->SetRenderWindow(windowsBasic);
+
+		//创建我也不知道是啥的东西
+		vtkSmartPointer<vtkCellPicker> picker =	vtkSmartPointer<vtkCellPicker>::New();
+		picker->SetTolerance(0.005);
+
+		//创建vtkImageViewer3子窗口，用以显示二维图形
+		vtkSmartPointer<vtkImagePlaneWidget3> viewer = vtkSmartPointer<vtkImagePlaneWidget3>::New();
+	
+		//设置数据源
+		viewer->SetInputConnection(dicomReader->GetOutputPort());
+
+		//设置交互器
+		viewer->SetInteractor(windowInteractor);
+		viewer->SetPicker(picker);
+
+		//设置显示坐标
+		viewer->SetPoint(x, y, z);
+
+		//设置渲染窗口
+		viewer->SetRenderWindow(windowsBasic);
+
+		//打开控件
+		viewer->On();
+
+		//初始化与显示
+		windowInteractor->Initialize();
+		windowInteractor->Start();
+
+	}
+
 
 	return 0;
 }
