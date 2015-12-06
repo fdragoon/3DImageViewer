@@ -13,14 +13,14 @@
 #include "vtkWindowCallback.h"
 
 
-int main(int argc, char *argv[])
+int main(int, char *argv[])
 {
 	int x = 200;
 	int y = 200;
 	int z = 100;
 
-	//¶ÁÈ¡DicomÊı¾İ
-	//VTK¿ÉÒÔ´ÓÎÄ¼ş¼ĞÖĞ¶ÁÈ¡Ò»ÏµÁĞÊı¾İ£¬²¢×éºÏÎªÈıÎ¬Í¼ÏñÊı¾İ¡£
+	//è¯»å–Dicomæ•°æ®
+	//VTKå¯ä»¥ä»æ–‡ä»¶å¤¹ä¸­è¯»å–ä¸€ç³»åˆ—æ•°æ®ï¼Œå¹¶ç»„åˆä¸ºä¸‰ç»´å›¾åƒæ•°æ®ã€‚
 	char *dirname = argv[2];
 	vtkSmartPointer<vtkDICOMImageReader> dr = vtkSmartPointer<vtkDICOMImageReader>::New();
 	dr->SetDirectoryName(dirname);
@@ -30,86 +30,86 @@ int main(int argc, char *argv[])
 
 	//if (mode == 1)
 	//{
-	//	//´´½¨ÏÔÊ¾´°¿Ú
+	//	//åˆ›å»ºæ˜¾ç¤ºçª—å£
 	//	vtkSmartPointer<vtkRenderWindow> rw = vtkSmartPointer<vtkRenderWindow> ::New();
 	//	rw->SetSize(500, 500);
 
-	//	//´´½¨vtkImageViewer3×Ó´°¿Ú£¬ÓÃÒÔÏÔÊ¾¶şÎ¬Í¼ĞÎ
+	//	//åˆ›å»ºvtkImageViewer3å­çª—å£ï¼Œç”¨ä»¥æ˜¾ç¤ºäºŒç»´å›¾å½¢
 	//	vtkSmartPointer<vtkImageViewer3> v = vtkSmartPointer<vtkImageViewer3>::New();
-	//	//ÉèÖÃÊı¾İÔ´
+	//	//è®¾ç½®æ•°æ®æº
 	//	v->SetInputConnection(dr->GetOutputPort());
-	//	//ÉèÖÃÏÔÊ¾×ø±ê
+	//	//è®¾ç½®æ˜¾ç¤ºåæ ‡
 	//	v->SetPoint(x, y, z);
-	//	//ÉèÖÃäÖÈ¾´°¿Ú
+	//	//è®¾ç½®æ¸²æŸ“çª—å£
 	//	v->SetRenderWindow(rw);
 
-	//	//´´½¨½»»¥Æ÷
+	//	//åˆ›å»ºäº¤äº’å™¨
 	//	vtkSmartPointer<vtkRenderWindowInteractor>rwi = vtkSmartPointer<vtkRenderWindowInteractor>::New();
 	//	rwi->SetRenderWindow(rw);
 
-	//	//½»»¥Æ÷ÑùÊ½ÔİÊ±²ÉÓÃvtkInteractorStyleImage
+	//	//äº¤äº’å™¨æ ·å¼æš‚æ—¶é‡‡ç”¨vtkInteractorStyleImage
 	//	vtkSmartPointer<vtkInteractorStyleImage>windowInteractorStyle = vtkSmartPointer<vtkInteractorStyleImage>::New();
 	//	rwi->SetInteractorStyle(windowInteractorStyle);
 
-	//	//³õÊ¼»¯ÓëÏÔÊ¾
+	//	//åˆå§‹åŒ–ä¸æ˜¾ç¤º
 	//	rwi->Initialize();
 	//	rwi->Start();
 	//}
 	//else
 	if (mode == 2)
 	{
-		//vtkImageViewer2µ¥Í¼ÏñÊµÏÖ
+		//vtkImageViewer2å•å›¾åƒå®ç°
 		vtkSmartPointer<vtkImageViewer2> v = vtkSmartPointer<vtkImageViewer2>::New();
 		v->SetInputConnection(dr->GetOutputPort());
 		v->SetSliceOrientationToXY();
 		v->SetSlice(z);
-		
-		//´´½¨½»»¥Æ÷
+
+		//åˆ›å»ºäº¤äº’å™¨
 		vtkSmartPointer<vtkRenderWindowInteractor>rwi = vtkSmartPointer<vtkRenderWindowInteractor>::New();
 		rwi->SetRenderWindow(v->GetRenderWindow());//-2
 
-		//³õÊ¼»¯ÓëÏÔÊ¾
+		//åˆå§‹åŒ–ä¸æ˜¾ç¤º
 		rwi->Initialize();
 		rwi->Start();
 	}
 	else if (mode == 3)
 	{
-		//´´½¨ÏÔÊ¾´°¿Ú
+		//åˆ›å»ºæ˜¾ç¤ºçª—å£
 		vtkSmartPointer<vtkRenderWindow> rw = vtkSmartPointer<vtkRenderWindow> ::New();
 		rw->SetSize(500, 500);
 
-		//´´½¨½»»¥Æ÷
+		//åˆ›å»ºäº¤äº’å™¨
 		vtkSmartPointer<vtkRenderWindowInteractor>rwi = vtkSmartPointer<vtkRenderWindowInteractor>::New();
 		rwi->SetRenderWindow(rw);
 
-		//´´½¨×¥È¡Æ÷
+		//åˆ›å»ºæŠ“å–å™¨
 		vtkSmartPointer<vtkCellPicker> picker = vtkSmartPointer<vtkCellPicker>::New();
 		picker->SetTolerance(0.005);
 
-		//´´½¨vtkImagePlaneWidget3×Ó´°¿Ú
+		//åˆ›å»ºvtkImagePlaneWidget3å­çª—å£
 		vtkSmartPointer<vtkImagePlaneWidget3> v = vtkSmartPointer<vtkImagePlaneWidget3>::New();
 
-		//ÉèÖÃÊı¾İ
+		//è®¾ç½®æ•°æ®
 		v->SetInputConnection(dr->GetOutputPort());
 		v->SetRenderWindow(rw);
 		v->SetPicker(picker);
 		v->SetPoint(x, y, z);
 		v->SetInteractor(rwi);
 
-		//¶¨Òå»Øµ÷
+		//å®šä¹‰å›è°ƒ
 		vtkSmartPointer<vtkClickCallback> cc = vtkSmartPointer<vtkClickCallback>::New();
 		cc->ipw3 = v;
 
-		//ÉèÖÃ½»»¥Æ÷
+		//è®¾ç½®äº¤äº’å™¨
 		rwi->RemoveAllObservers();
 		rwi->AddObserver(vtkCommand::LeftButtonPressEvent, cc);
 
-		//´ò¿ª¿Ø¼ş
+		//æ‰“å¼€æ§ä»¶
 		rw->Render();
 		v->On();
 		v->ResetCamera();
 		rw->Render();
-		//³õÊ¼»¯ÓëÏÔÊ¾	
+		//åˆå§‹åŒ–ä¸æ˜¾ç¤º	
 		rwi->Initialize();
 		rwi->Start();
 

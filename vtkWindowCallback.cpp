@@ -2,7 +2,7 @@
 
 vtkStandardNewMacro(vtkClickCallback);
 
-void vtkClickCallback::Execute(vtkObject * caller, unsigned long ev, void * callData) {
+void vtkClickCallback::Execute(vtkObject * caller, unsigned long, void *) {
 	vtkRenderWindowInteractor *rwi = dynamic_cast<vtkRenderWindowInteractor *>(caller);
 	vtkCellPicker *cp = ipw3->GetPicker();
 	int cursorPos[3];
@@ -28,9 +28,5 @@ void vtkClickCallback::Execute(vtkObject * caller, unsigned long ev, void * call
 		ipw3->SetY(imagePos[1]);
 		ipw3->Render();
 	}
-	//cp->Pick(static_cast<double>(cursorPos[0]), static_cast<double>(cursorPos[1]), 0, ipw3->renderer[1]);
-	//cp->Pick(static_cast<double>(cursorPos[0]), static_cast<double>(cursorPos[1]), 0, ipw3->renderer[2]);
-
-
 }
 

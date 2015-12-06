@@ -16,15 +16,15 @@ public:
 
 
 	// Description:
-	// ÉèÖÃÊäÈëÍ¼Ïñ¡£
+	// è®¾ç½®è¾“å…¥å›¾åƒã€‚
 	virtual void SetInputConnection(vtkAlgorithmOutput* input);
 
 	// Description:
-	// ÉèÖÃÏÔÊ¾µã¡£
+	// è®¾ç½®æ˜¾ç¤ºç‚¹ã€‚
 	virtual void SetPoint(int x, int y, int z);
 
 	// Description:
-	// ÉèÖÃäÖÈ¾´°¿Ú¡£
+	// è®¾ç½®æ¸²æŸ“çª—å£ã€‚
 	virtual void SetRenderWindow(vtkRenderWindow *arg);
 
 protected:
