@@ -47,11 +47,11 @@ public:
 	vtkImagePlaneWidget3 &operator=(vtkImagePlaneWidget3&) = delete;
 
 	// Description:
-	// ÉèÖÃÊäÈëÍ¼Ïñ¡£
+	// è®¾ç½®è¾“å…¥å›¾åƒã€‚
 	virtual void SetInputConnection(vtkAlgorithmOutput* input);
 
 	// Description:
-	// ÉèÖÃÏÔÊ¾µã¡£
+	// è®¾ç½®æ˜¾ç¤ºç‚¹ã€‚
 	inline void SetPoint(int x, int y, int z) {
 		PlaneWidget[0]->SetSliceIndex(x);
 		PlaneWidget[1]->SetSliceIndex(y);
@@ -73,51 +73,51 @@ public:
 	};
 
 	// Description:
-	// ÉèÖÃäÖÈ¾´°¿Ú¡£
+	// è®¾ç½®æ¸²æŸ“çª—å£ã€‚
 	virtual void SetRenderWindow(vtkRenderWindow *arg);
 	vtkGetObjectMacro(RenderWindow, vtkRenderWindow);
 
 	// Description:
-	// ÉèÖÃ´°¿Ú½»»¥Æ÷¡£
+	// è®¾ç½®çª—å£äº¤äº’å™¨ã€‚
 	virtual void SetInteractor(vtkRenderWindowInteractor* iren);
 
 	// Description:
-	// ÉèÖÃ´°¿Ú½»»¥Æ÷¡£
+	// è®¾ç½®çª—å£äº¤äº’å™¨ã€‚
 	vtkSetMacro(Picker, vtkCellPicker *);
 	vtkGetObjectMacro(Picker, vtkCellPicker);
 
 	// Description:
-	// »ñÈ¡ĞĞ¶¯Æ÷¡£
+	// è·å–è¡ŒåŠ¨å™¨ã€‚
 	vtkGetObject3Macro(ImageActor, vtkImageActor);
 	vtkGetVector3Macro(ImageActor, vtkImageActor *);
 	vtkGetObjectMacro(OutlineActor, vtkActor);
 
-	// Description£º
-	// »ñÈ¡äÖÈ¾Æ÷¡£
+	// Descriptionï¼š
+	// è·å–æ¸²æŸ“å™¨ã€‚
 	vtkGetObject3Macro(Renderer, vtkRenderer);
 	vtkGetVector3Macro(Renderer, vtkRenderer *);
 	vtkGetObjectMacro(Renderer3d, vtkRenderer);
 
 	// Description:
-	// ´ò¿ª´°¿Ú½»»¥Æ÷¡£
+	// æ‰“å¼€çª—å£äº¤äº’å™¨ã€‚
 	inline void On() {
 		for (auto &planeWidgetI : PlaneWidget)
 			planeWidgetI->On();
 	}
 
 	// Description:
-	// ¹Ø±Õ´°¿Ú½»»¥Æ÷¡£
+	// å…³é—­çª—å£äº¤äº’å™¨ã€‚
 	inline void Off() {
 		for (auto &planeWidgetI : PlaneWidget)
 			planeWidgetI->Off();
 	}
 
 	// Description:
-	// ÖØÖÃ¾µÍ·¡£
+	// é‡ç½®é•œå¤´ã€‚
 	void ResetCamera();
 
 	// Description:
-	// äÖÈ¾¡£
+	// æ¸²æŸ“ã€‚
 	virtual void Render();
 
 protected:
